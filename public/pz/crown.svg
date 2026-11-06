@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48" width="64" height="48" role="img" aria-label="Coroa">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe27a"/>
+      <stop offset=".6" stop-color="#f8b81f"/>
+      <stop offset="1" stop-color="#e48f0c"/>
+    </linearGradient>
+  </defs>
+  <path d="M6 16 L16 30 L24 10 L32 28 L40 10 L48 30 L58 16 L54 42 Q32 48 10 42 Z" fill="url(#g)" stroke="#c77a05" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M12 36 Q32 42 52 36" stroke="#fff6c9" stroke-opacity=".7" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+  <circle cx="6" cy="14" r="4.2" fill="#ffe9a0" stroke="#c77a05" stroke-width="1"/>
+  <circle cx="24" cy="8" r="4" fill="#ffe9a0" stroke="#c77a05" stroke-width="1"/>
+  <circle cx="40" cy="8" r="4" fill="#ffe9a0" stroke="#c77a05" stroke-width="1"/>
+  <circle cx="58" cy="14" r="4.2" fill="#ffe9a0" stroke="#c77a05" stroke-width="1"/>
+  <circle cx="32" cy="34" r="3.6" fill="#a855f7"/>
+</svg>

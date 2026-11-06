@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PZ AI</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <link rel="icon" type="image/svg+xml" href="pz/crown.svg" />
+  <link rel="preload" href="fonts/poppins-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="pz-ai.css" />
+</head>
+<body>
+
+  <!-- BARRA LATERAL -->
+  <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+    <div class="brand">
+      <div class="brand-logo" role="img" aria-label="PZ AI">
+        <svg class="brand-swoosh" viewBox="0 0 54 22" aria-hidden="true"><path d="M2 20C12 3 36-3 52 6 38 6 20 8 2 20Z" fill="#8a35ff"/></svg>
+        <img class="brand-crown" src="pz/crown.svg" alt="" />
+        <span class="brand-word" aria-hidden="true">PZ<b>AI</b></span>
+      </div>
+    </div>
+
+    <div class="sidebar-top">
+      <button class="new-chat-pill" id="newChatBtn" type="button">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+        <span>Novo chat</span>
+      </button>
+    </div>
+
+    <nav class="nav-menu" aria-label="Principal">
+      <button class="nav-item active" id="navChatBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z" fill="currentColor" stroke-width="1.4"/></svg>
+        <span>Início</span>
+      </button>
+      <button class="nav-item" id="navHistoryBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1L3.5 8.5"/><path d="M3.5 3.5v5h5"/><path d="M12 7.5V12l3 2"/></svg>
+        <span>Histórico</span>
+      </button>
+      <button class="nav-item" id="navFavoritesBtn" type="button" data-soon="Favoritos">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.2 2.7 5.6 6.1.8-4.5 4.2 1.2 6.1L12 17l-5.5 2.9 1.2-6.1-4.5-4.2 6.1-.8z"/></svg>
+        <span>Favoritos</span>
+      </button>
+      <button class="nav-item" id="navSettingsBtn" type="button" data-soon="Configurações">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.7 7.7 0 0 0 0-3l2-1.5-2-3.5-2.3.9a7.6 7.6 0 0 0-2.6-1.5L14 2.5h-4l-.5 2.4a7.6 7.6 0 0 0-2.6 1.5L4.6 5.5l-2 3.5 2 1.5a7.7 7.7 0 0 0 0 3l-2 1.5 2 3.5 2.3-.9a7.6 7.6 0 0 0 2.6 1.5l.5 2.4h4l.5-2.4a7.6 7.6 0 0 0 2.6-1.5l2.3.9 2-3.5z"/></svg>
+        <span>Configurações</span>
+      </button>
+      <button class="nav-item" id="navHelpBtn" type="button" data-soon="Ajuda">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.3 9.2a2.8 2.8 0 1 1 4 2.5c-.9.5-1.3 1-1.3 2"/><path d="M12 17.2v.1"/></svg>
+        <span>Ajuda</span>
+      </button>
+    </nav>
+
+    <div class="nav-tools-label">Ferramentas</div>
+    <div class="nav-tools">
+      <button class="nav-item" id="navImagesBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        <span>Imagens</span>
+      </button>
+      <button class="nav-item" id="navWorkBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg>
+        <span>Work</span>
+      </button>
+      <button class="nav-item" id="openCodexBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+        <span>Codex Canvas</span>
+      </button>
+    </div>
+
+    <div class="sidebar-scroll" id="historyPanel">
+      <div class="sidebar-section-header"><span>Recentes</span></div>
+      <div class="recent-list" id="recentList"></div>
+    </div>
+
+    <div class="pro-card">
+      <span class="pro-spark s1" aria-hidden="true">✦</span>
+      <span class="pro-spark s2" aria-hidden="true">✦</span>
+      <span class="pro-spark s3" aria-hidden="true">✦</span>
+      <img class="pro-crown" src="pz/crown.svg" alt="" />
+      <div class="pro-title">PZ AI <span>Pro</span></div>
+      <p class="pro-text">Aproveite recursos exclusivos e muito mais!</p>
+      <button class="pro-btn" id="proLearnMoreBtn" type="button">Saiba mais</button>
+    </div>
+
+    <div class="sidebar-footer">
+      <span class="status-pill" id="apiStatusBadge" role="status">Online</span>
+    </div>
+  </aside>
+  <div class="scrim" id="sidebarScrim" aria-hidden="true"></div>
+
+  <!-- MAIN -->
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggleBtn" type="button" aria-label="Abrir menu" aria-controls="sidebar" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <div class="model-bar">
+          <select class="model-selector" id="modelSelect" aria-label="Modelo de IA">
+            <option value="openrouter/auto">openrouter/auto</option>
+          </select>
+          <button class="top-icon-btn" id="reloadModelsBtn" type="button" title="Recarregar modelos" aria-label="Recarregar modelos">↻</button>
+        </div>
+        <label class="policy-control" for="queuePolicy"><span>Enquanto responde</span>
+          <select id="queuePolicy" class="policy-select" aria-label="Como tratar novas mensagens durante uma resposta">
+            <option value="block">Bloquear novos envios</option>
+            <option value="queue">Adicionar à fila</option>
+            <option value="interrupt">Interromper resposta atual</option>
+          </select>
+        </label>
+        <button class="top-icon-btn" id="exportMarkdownBtn" type="button">Exportar .md</button>
+      </div>
+      <div class="user-chip" title="Pizzy · Studio">
+        <span class="user-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.2"/><path d="M3.8 21c.6-4.4 4-6.6 8.2-6.6s7.6 2.2 8.2 6.6z"/></svg></span>
+        <svg class="user-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <!-- CHAT STAGE (tela inicial + conversa) -->
+      <section class="chat-stage is-empty" id="chatStage">
+        <div class="hero-greeting">
+          <div class="hero-copy">
+            <h1 class="hero-title">
+              <span style="display:block">Olá! <span class="wave" aria-hidden="true">👋</span></span>
+              <span style="display:block">Eu sou a <em>PZ AI!</em></span>
+            </h1>
+            <p class="hero-sub">Sua IA inteligente, sempre pronta para ajudar! 💜</p>
+          </div>
+          <img class="hero-mascot" src="pz/mascot.svg" alt="Mascote robô da PZ AI com coroa roxa" />
+        </div>
+
+        <div class="messages-scroll" id="messagesScroll"></div>
+
+        <div class="composer-zone">
+          <div class="operation-bar">
+            <span class="operation-status" id="operationStatus" data-state="idle" role="status" aria-live="polite">Aguardando sua mensagem…</span>
+            <span class="queue-count" id="queueCount" hidden></span>
+            <button class="cancel-operation" id="cancelOperationBtn" type="button" hidden>Parar tarefa</button>
+          </div>
+          <div class="pill-bar">
+            <svg class="pill-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C12.9 7.6 16.4 11.1 22.5 12 16.4 12.9 12.9 16.4 12 22.5 11.1 16.4 7.6 12.9 1.5 12 7.6 11.1 11.1 7.6 12 1.5Z"/></svg>
+            <textarea class="pill-input" id="promptInput" rows="1" placeholder="Digite sua pergunta ou pedido..." aria-label="Mensagem para a PZ AI"></textarea>
+            <div class="pill-controls">
+              <button class="chip-btn" id="webToggleBtn" type="button"><span>🌐</span><span>Web</span></button>
+              <button class="chip-btn" id="thinkToggleBtn" type="button"><span>🧠</span><span>Pensar</span></button>
+              <button class="attach-btn" id="attachBtn" type="button" data-soon="Anexar arquivos" title="Anexar arquivos" aria-label="Anexar arquivos">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 11.5-8.6 8.6a5.5 5.5 0 0 1-7.8-7.8l8.9-8.9a3.7 3.7 0 0 1 5.2 5.2l-8.8 8.8a1.8 1.8 0 0 1-2.6-2.6l8-8"/></svg>
+              </button>
+              <button class="send-orb-btn" id="sendOrbBtn" type="button" aria-label="Enviar mensagem" title="Enviar mensagem">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.4 20.4 20.85 12.92a1 1 0 0 0 0-1.84L3.4 3.6a.993.993 0 0 0-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="quick-stack" aria-label="Atalhos rápidos">
+            <button class="quick-row" id="quickOpenImageStudio" type="button">
+              <span class="q-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 2 5 13.5h5.5L9.5 22 19 9.5h-5.8z" fill="#ffc21a" stroke="#f08a00" stroke-width="1.2" stroke-linejoin="round"/></svg></span><span>Criar imagem</span>
+            </button>
+            <button class="quick-row" type="button" data-soon="Criar vídeo">
+              <span class="q-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="4" fill="#7b3cf0"/><path d="M10 9v6l5-3z" fill="#fff"/></svg></span><span>Criar vídeo</span>
+            </button>
+            <button class="quick-row" type="button" data-quick="Escreva ou edite um código ou texto refinado a seguir:">
+              <span class="q-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 20 1-4.5L16.8 3.7a2 2 0 0 1 2.8 0l.7.7a2 2 0 0 1 0 2.8L8.5 19z" fill="#7b3cf0"/><path d="m14.8 5.7 3.5 3.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="m4 20 1-4.5L8.5 19z" fill="#ffc21a"/></svg></span><span>Escrever texto</span>
+            </button>
+            <button class="quick-row" type="button" data-quick="Me dê ideias criativas para ">
+              <span class="q-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8a6.2 6.2 0 0 0-3.6 11.2c.7.5 1 1.1 1 1.8V17h5.2v-1.2c0-.7.3-1.3 1-1.8A6.2 6.2 0 0 0 12 2.8z" fill="#ffc21a"/><rect x="9.2" y="18" width="5.6" height="2.4" rx="1.2" fill="#7b3cf0"/></svg></span><span>Dar ideias</span>
+            </button>
+            <button class="quick-row" type="button" data-soon="Explorar mais">
+              <span class="q-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2.4" fill="#7b3cf0"/><rect x="13" y="3" width="8" height="8" rx="2.4" fill="#a855f7"/><rect x="3" y="13" width="8" height="8" rx="2.4" fill="#a855f7"/><rect x="13" y="13" width="8" height="8" rx="2.4" fill="#7b3cf0"/></svg></span><span>Explorar mais</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="suggest-grid" aria-label="Sugestões">
+        <button class="suggest-card" type="button" data-suggest="Crie um roteiro para um vídeo viral sobre ">
+          <span class="suggest-main">
+            <img class="suggest-icon" src="pz/icon-clapper.svg" alt="" />
+            <span class="suggest-text">
+              <span class="suggest-kicker">Criar roteiro</span>
+              <span class="suggest-title">Crie um roteiro para um vídeo viral</span>
+            </span>
+          </span>
+          <span class="suggest-arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+        <button class="suggest-card" type="button" data-open-images="Uma imagem incrível de ">
+          <span class="suggest-main">
+            <img class="suggest-icon" src="pz/icon-palette.svg" alt="" />
+            <span class="suggest-text">
+              <span class="suggest-kicker">Criar imagem</span>
+              <span class="suggest-title">Gere uma imagem incrível</span>
+            </span>
+          </span>
+          <span class="suggest-arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+        <button class="suggest-card" type="button" data-suggest="Me ajude a escrever um texto sobre ">
+          <span class="suggest-main">
+            <img class="suggest-icon" src="pz/icon-doc.svg" alt="" />
+            <span class="suggest-text">
+              <span class="suggest-kicker">Escrever texto</span>
+              <span class="suggest-title">Me ajude com um texto</span>
+            </span>
+          </span>
+          <span class="suggest-arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+        <button class="suggest-card" type="button" data-suggest="Me dê ideias criativas para ">
+          <span class="suggest-main">
+            <img class="suggest-icon" src="pz/icon-bulb.svg" alt="" />
+            <span class="suggest-text">
+              <span class="suggest-kicker">Ideias criativas</span>
+              <span class="suggest-title">Me dê ideias criativas</span>
+            </span>
+          </span>
+          <span class="suggest-arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+        </div>
+
+        <div class="tip-bar" role="note">
+          <img src="pz/crown.svg" alt="" />
+          <span><strong>Dica da PZ AI</strong> &nbsp;Seja específico no seu pedido para obter os melhores resultados! 💜</span>
+        </div>
+      </section>
+
+      <!-- IMAGES STAGE -->
+      <section class="image-stage" id="imageStage">
+        <div class="image-stage-header">Imagens</div>
+
+        <div class="image-tabs">
+          <button class="img-tab active" id="tabEmAlta">Em alta</button>
+          <button class="img-tab" id="tabModelos">Modelos e Provedores</button>
+        </div>
+
+        <div class="image-scroll-content">
+          <!-- ABA 1: EM ALTA -->
+          <div id="sectionEmAlta">
+            <div class="image-cards-grid" id="showcaseGrid"></div>
+          </div>
+
+          <!-- ABA 2: MODELOS -->
+          <div id="sectionModelos" style="display:none;">
+            <div class="image-settings">
+              <h3>Configurar API de Imagem</h3>
+              <div class="field">
+                <label for="imgProviderSelect">Provedor</label>
+                <select class="model-selector" id="imgProviderSelect">
+                  <option value="pollinations">Pollinations.ai (Flux / Turbo)</option>
+                  <option value="cloudflare">Cloudflare Workers AI (Stable Diffusion)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="imgModelInput">Modelo / ID</label>
+                <input class="model-selector" id="imgModelInput" value="flux" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Criações Recentes -->
+          <div style="margin-top:36px;">
+            <div class="section-label"><span>Suas Criações Recentes</span></div>
+            <div class="gallery-grid" id="imageGalleryGrid"></div>
+          </div>
+        </div>
+
+        <!-- BARRA DE PROMPT FLUTUANTE INFERIOR NA ABA DE IMAGENS -->
+        <div class="composer-zone">
+          <div class="pill-bar">
+            <svg class="pill-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C12.9 7.6 16.4 11.1 22.5 12 16.4 12.9 12.9 16.4 12 22.5 11.1 16.4 7.6 12.9 1.5 12 7.6 11.1 11.1 7.6 12 1.5Z"/></svg>
+            <textarea class="pill-input" id="imagePromptInput" rows="1" placeholder="Descreva uma nova imagem ou figurinha..."></textarea>
+            <div class="pill-controls">
+              <button class="send-orb-btn" id="generateImgBtn" type="button" title="Gerar Imagem" aria-label="Gerar imagem">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.4 20.4 20.85 12.92a1 1 0 0 0 0-1.84L3.4 3.6a.993.993 0 0 0-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORK STAGE -->
+      <section class="work-stage" id="workStage">
+        <div class="work-stage-header">
+          <h1>Work · encontre oportunidades e crie sites</h1>
+          <p>Pesquise empresas por atividade, cidade e estado. Os resultados mostram apenas empresas sem um site listado no Google Maps — isso não comprova que a empresa não tenha um site fora do cadastro.</p>
+        </div>
+
+        <div class="work-layout">
+          <form class="work-card" id="workSearchForm">
+            <h2>Buscar empresas</h2>
+            <div class="work-fields">
+              <div class="work-field"><label for="workCategory">O que é / tipo de negócio</label><input class="work-input" id="workCategory" maxlength="100" placeholder="Ex.: salão de beleza, oficina, dentista" required /></div>
+              <div class="work-field"><label for="workCity">Cidade</label><input class="work-input" id="workCity" maxlength="100" placeholder="Ex.: Campinas" required /></div>
+              <div class="work-field"><label for="workState">Estado (UF)</label><select class="work-select" id="workState" required>
+                <option value="">Selecione…</option><option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option>
+              </select></div>
+              <div class="work-field"><label for="workExclude">Excluir nomes/categorias (separados por vírgula)</label><input class="work-input" id="workExclude" maxlength="500" value="advocacia, advogado, escritório de advocacia, escritório jurídico, lawyer, law_firm, legal services" /></div>
+            </div>
+            <label class="work-check"><input type="checkbox" id="workBillingConsent" /><span>Entendo que cada página consulta o Google Places e pode gerar cobrança na minha conta Google Cloud. A API key fica somente no servidor.</span></label>
+            <button class="work-button" id="workSearchButton" type="submit" disabled>Buscar no Google Maps</button>
+            <button class="work-button danger" id="workStopSearchButton" type="button" hidden>Cancelar busca</button>
+            <div class="work-cost-note">Até 20 resultados por página e no máximo 3 páginas (60 resultados da consulta); cada página é uma chamada. Na tabela oficial consultada em 29/10/2026, Text Search Enterprise indica 1.000 chamadas mensais incluídas e preço inicial de US$35/1.000 chamadas pagas. Valores podem mudar e variar por conta. A ausência de site significa “não listado no Google”, não uma confirmação absoluta. <a href="https://developers.google.com/maps/billing-and-pricing/pricing" target="_blank" rel="noopener noreferrer">Ver preços oficiais</a>.</div>
+            <div class="work-setup-note" id="workSetupNote" hidden></div>
+            <div class="work-legal-links" id="workLegalLinks" hidden></div>
+          </form>
+
+          <div class="work-card">
+            <div class="work-results-head"><h2>Resultados</h2><span class="work-muted" id="workResultCount">Escolha a categoria, cidade e UF.</span></div>
+            <div class="work-source"><span>Fonte dos dados: <strong translate="no">Google Maps</strong>. Confira cada perfil antes de entrar em contato.</span></div>
+            <div class="work-status" id="workSearchStatus" role="status" aria-live="polite"></div>
+            <div class="work-results-list" id="workResultsList"></div>
+            <button class="work-button secondary" id="workLoadMoreButton" type="button" hidden>Carregar próxima página</button>
+          </div>
+        </div>
+
+        <section class="work-builder" id="workBuilder" hidden>
+          <div class="work-selected-summary" id="workSelectedSummary"></div>
+          <div class="work-policy-note">Os dados que vieram do Google Maps não são enviados ao gerador nem salvos pelo app. Confirme o cliente e preencha o briefing manualmente, com informações fornecidas ou autorizadas pelo próprio negócio.</div>
+          <div class="work-builder-grid">
+            <div class="work-card">
+              <h2>Briefing do cliente</h2>
+              <div class="work-builder-fields">
+                <div class="work-field"><label for="workClientName">Nome confirmado do negócio</label><input class="work-input" id="workClientName" maxlength="120" placeholder="Digite o nome confirmado pelo cliente" /></div>
+                <div class="work-field"><label for="workClientCategory">Serviço/produto principal</label><input class="work-input" id="workClientCategory" maxlength="160" placeholder="Ex.: cortes, coloração e tratamentos capilares" /></div>
+                <div class="work-field"><label for="workClientLocation">Cidade/estado para o site (se autorizado)</label><input class="work-input" id="workClientLocation" maxlength="160" placeholder="Digite as informações confirmadas" /></div>
+                <div class="work-field"><label for="workClientDetails">Serviços, público, diferenciais e estilo visual</label><textarea class="work-textarea" id="workClientDetails" maxlength="4000" placeholder="Use apenas dados confirmados. Não inclua dados pessoais sem autorização."></textarea></div>
+                <div class="work-field"><label for="workClientContact">Contato que o cliente autorizou a publicar</label><input class="work-input" id="workClientContact" maxlength="250" placeholder="Telefone, e-mail ou link — opcional" /></div>
+              </div>
+              <button class="work-button secondary" id="workBuildPromptButton" type="button" style="margin-top:12px;">Montar prompt do site</button>
+              <div class="work-prompt-area" id="workPromptArea" hidden>
+                <label class="work-muted" for="workPrompt">Prompt gerado (você pode editar antes de criar)</label>
+                <textarea class="work-textarea work-prompt" id="workPrompt"></textarea>
+                <div class="work-button-row">
+                  <button class="work-button" id="workGenerateSiteButton" type="button">Criar site com IA</button>
+                  <button class="work-button danger" id="workCancelSiteButton" type="button" hidden>Interromper geração</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="work-card work-preview-area" id="workPreviewArea" hidden>
+              <div class="work-results-head"><h2>Prévia do site</h2><button class="work-button secondary" id="workDownloadSiteButton" type="button" disabled>Baixar index.html</button></div>
+              <div class="work-status" id="workSiteStatus" role="status" aria-live="polite"></div>
+              <iframe class="work-preview-frame" id="workSitePreview" title="Prévia isolada do site criado" sandbox=""></iframe>
+              <details style="margin-top:10px;"><summary class="work-muted">Ver código HTML</summary><textarea class="work-textarea work-site-source" id="workSiteSource" readonly></textarea></details>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- CANVAS -->
+      <aside class="canvas-drawer" id="canvasDrawer">
+        <div class="canvas-top">
+          <span><strong>Codex Canvas</strong></span>
+          <button class="top-icon-btn" id="closeCanvasBtn">✕</button>
+        </div>
+        <iframe class="canvas-frame" id="canvasFrame" sandbox="allow-scripts"></iframe>
+      </aside>
+    </div>
+  </main>
+
+  <script type="module" src="pz-ui.js"></script>
+  <script type="module">
+    import { ChatStateMachine, CHAT_STATES, SerialTaskQueue } from "./chat-state.js";
+    import { initWork } from "./work.js";
+    marked.setOptions({ breaks: true, gfm: true });
+
+    const CHATS_KEY = "pz_obsidian_chats_v2";
+    const GALLERY_KEY = "pz_obsidian_images_v2";
+    const readStoredJson = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key) || "null") ?? fallback; } catch { return fallback; } };
+    let chats = readStoredJson(CHATS_KEY, []);
+    let imageGallery = readStoredJson(GALLERY_KEY, []);
+    if (!Array.isArray(chats)) chats = [];
+    if (!Array.isArray(imageGallery)) imageGallery = [];
+    chats = chats.filter(chat => chat && typeof chat === "object" && Array.isArray(chat.messages)).map(chat => ({
+      ...chat,
+      id: typeof chat.id === "string" && chat.id ? chat.id : crypto.randomUUID(),
+      title: String(chat.title || "Conversa"),
+      messages: chat.messages.filter(message => message && typeof message === "object" && ["user", "assistant"].includes(message.role)).map(message => ({ ...message, content: String(message.content ?? "") }))
+    }));
+    imageGallery = imageGallery.filter(item => item && typeof item === "object");
+    let activeChatId = chats[0]?.id || null;
+    let allModels = [];
+    const PREFS_KEY = "pz_ai_studio_chat_prefs_v1";
+    let chatPrefs = readStoredJson(PREFS_KEY, {});
+    if (!chatPrefs || typeof chatPrefs !== "object" || Array.isArray(chatPrefs)) chatPrefs = {};
+    const QUEUE_POLICIES = new Set(["block", "queue", "interrupt"]);
+    const MAX_PENDING_CHAT_JOBS = 20;
+    let thinkMode = chatPrefs.thinkMode === true, webMode = chatPrefs.webMode === true;
+    let queuePolicy = QUEUE_POLICIES.has(chatPrefs.queuePolicy) ? chatPrefs.queuePolicy : "block";
+    let sending = false, activeController = null, activeJob = null;
+    const jobQueue = new SerialTaskQueue();
+    let persistTimer = null;
+
+    const showcasePrompts = [
+      { title: "Vista aérea", prompt: "Vista aérea de um cachorrinho correndo na grama verde, ultra detalhado", thumb: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&q=80" },
+      { title: "Caricatura", prompt: "Caricatura fofa de uma artista digital segurando pincel e paleta, estilo Pixar", thumb: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" },
+      { title: "Anime cyberpunk", prompt: "Garoto anime sorrindo em noite neon cyberpunk, alta qualidade", thumb: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&q=80" },
+      { title: "Retrato vintage", prompt: "Retrato estético anos 70 com óculos escuros e luz de sol", thumb: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" },
+      { title: "Avatar 3D", prompt: "Avatar 3D renderizado em octane render de jovem moderna com óculos laranja", thumb: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80" },
+      { title: "Pintura acrílica", prompt: "Pintura acrílica de um cachorro fofo fotorrealista", thumb: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&q=80" }
+    ];
+
+    const chatStage = document.getElementById("chatStage");
+    const imageStage = document.getElementById("imageStage");
+    const workStage = document.getElementById("workStage");
+    const navChatBtn = document.getElementById("navChatBtn");
+    const navImagesBtn = document.getElementById("navImagesBtn");
+    const navWorkBtn = document.getElementById("navWorkBtn");
+    const messagesScroll = document.getElementById("messagesScroll");
+    const promptInput = document.getElementById("promptInput");
+    const sendOrbBtn = document.getElementById("sendOrbBtn");
+    const modelSelect = document.getElementById("modelSelect");
+    const queuePolicySelect = document.getElementById("queuePolicy");
+    const recentList = document.getElementById("recentList");
+    const canvasDrawer = document.getElementById("canvasDrawer");
+    const canvasFrame = document.getElementById("canvasFrame");
+    const operationStatus = document.getElementById("operationStatus");
+    const queueCount = document.getElementById("queueCount");
+    const cancelOperationBtn = document.getElementById("cancelOperationBtn");
+
+    function persist() { try { localStorage.setItem(CHATS_KEY, JSON.stringify(chats)); } catch (error) { console.warn("Não foi possível salvar o histórico local.", error); } }
+    function persistSoon() {
+      clearTimeout(persistTimer);
+      persistTimer = setTimeout(persist, 250);
+    }
+
+    let recoveredInterruptedOperation = false;
+    for (const chat of chats) {
+      for (const message of chat.messages || []) {
+        if (message.pending || ["queued", "processing", "thinking", "sending"].includes(message.state)) {
+          message.pending = false;
+          message.state = "interrupted";
+          if (message.role === "assistant" && !message.content) message.content = "A página foi recarregada antes desta resposta terminar.";
+          recoveredInterruptedOperation = true;
+        }
+      }
+    }
+    if (recoveredInterruptedOperation) persist();
+
+    function switchStage(stage) {
+      if (stage === "images") {
+        chatStage.style.display = "none";
+        workStage.classList.remove("active");
+        imageStage.classList.add("active");
+        navImagesBtn.classList.add("active");
+        navChatBtn.classList.remove("active");
+        navWorkBtn.classList.remove("active");
+        renderShowcase();
+        renderGallery();
+      } else if (stage === "work") {
+        chatStage.style.display = "none";
+        imageStage.classList.remove("active");
+        workStage.classList.add("active");
+        navChatBtn.classList.remove("active");
+        navImagesBtn.classList.remove("active");
+        navWorkBtn.classList.add("active");
+      } else {
+        imageStage.classList.remove("active");
+        workStage.classList.remove("active");
+        chatStage.style.display = "flex";
+        navChatBtn.classList.add("active");
+        navImagesBtn.classList.remove("active");
+        navWorkBtn.classList.remove("active");
+      }
+    }
+
+    navChatBtn.addEventListener("click", () => switchStage("chat"));
+    navImagesBtn.addEventListener("click", () => switchStage("images"));
+    navWorkBtn.addEventListener("click", () => switchStage("work"));
+    document.getElementById("quickOpenImageStudio").addEventListener("click", () => switchStage("images"));
+    initWork();
+
+    document.getElementById("tabEmAlta").addEventListener("click", () => {
+      document.getElementById("tabEmAlta").classList.add("active");
+      document.getElementById("tabModelos").classList.remove("active");
+      document.getElementById("sectionEmAlta").style.display = "block";
+      document.getElementById("sectionModelos").style.display = "none";
+    });
+    document.getElementById("tabModelos").addEventListener("click", () => {
+      document.getElementById("tabModelos").classList.add("active");
+      document.getElementById("tabEmAlta").classList.remove("active");
+      document.getElementById("sectionEmAlta").style.display = "none";
+      document.getElementById("sectionModelos").style.display = "block";
+    });
+
+    function renderShowcase() {
+      const grid = document.getElementById("showcaseGrid");
+      grid.innerHTML = "";
+      showcasePrompts.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "img-showcase-card";
+        card.innerHTML = `
+          <img src="${item.thumb}" class="img-showcase-thumb" loading="lazy" />
+          <div class="img-showcase-title">${item.title}</div>
+        `;
+        card.addEventListener("click", () => {
+          document.getElementById("imagePromptInput").value = item.prompt;
+          document.getElementById("imagePromptInput").focus();
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    async function handleImageGeneration() {
+      const promptText = document.getElementById("imagePromptInput").value.trim();
+      if (!promptText) return alert("Por favor, escreva o que você deseja gerar.");
+
+      const provider = document.getElementById("imgProviderSelect").value;
+      const model = document.getElementById("imgModelInput").value;
+      
+      const btn = document.getElementById("generateImgBtn");
+      btn.style.opacity = "0.5";
+
+      try {
+        const res = await fetch("/api/image/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: promptText, provider, model })
+        });
+        const data = await res.json();
+        if (!res.ok) return alert(data.error || "Erro ao gerar imagem.");
+
+        imageGallery.unshift({ imageUrl: data.imageUrl, prompt: promptText, model: data.model });
+        localStorage.setItem(GALLERY_KEY, JSON.stringify(imageGallery));
+        renderGallery();
+        document.getElementById("imagePromptInput").value = "";
+      } catch {
+        alert("Falha ao conectar com o gerador de imagens.");
+      } finally {
+        btn.style.opacity = "1";
+      }
+    }
+
+    document.getElementById("generateImgBtn").addEventListener("click", handleImageGeneration);
+    document.getElementById("imagePromptInput").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        handleImageGeneration();
+      }
+    });
+
+    function renderGallery() {
+      const grid = document.getElementById("imageGalleryGrid");
+      grid.innerHTML = "";
+      if (!imageGallery.length) {
+        grid.innerHTML = `<div class="empty-note">Nenhuma imagem gerada recentemente. Digite um prompt abaixo ou clique em um estilo acima.</div>`;
+        return;
+      }
+      imageGallery.forEach((item) => {
+        let imageUrl;
+        try {
+          const url = new URL(String(item.imageUrl || ""), location.origin);
+          if (![
+            "http:", "https:"
+          ].includes(url.protocol)) return;
+          imageUrl = url.href;
+        } catch { return; }
+        const box = document.createElement("div");
+        box.className = "img-showcase-card";
+        const image = document.createElement("img");
+        image.src = imageUrl;
+        image.className = "img-showcase-thumb";
+        image.alt = String(item.prompt ?? "Imagem gerada");
+        image.addEventListener("click", () => window.open(imageUrl, "_blank", "noopener,noreferrer"));
+        const title = document.createElement("div");
+        title.className = "img-showcase-title";
+        title.title = String(item.prompt ?? "");
+        title.textContent = String(item.prompt ?? "Imagem gerada");
+        box.append(image, title);
+        grid.appendChild(box);
+      });
+    }
+
+    function getActiveChat() {
+      let c = chats.find(x => x.id === activeChatId);
+      if (!c) {
+        c = { id: crypto.randomUUID(), title: "Novo chat", messages: [] };
+        chats.unshift(c);
+        activeChatId = c.id;
+        persist();
+      }
+      return c;
+    }
+
+    function safeMarkdown(content) {
+      const doc = new DOMParser().parseFromString(marked.parse(String(content ?? "")), "text/html");
+      const allowed = new Set(["P", "BR", "STRONG", "B", "EM", "I", "DEL", "S", "BLOCKQUOTE", "UL", "OL", "LI", "H1", "H2", "H3", "H4", "H5", "H6", "PRE", "CODE", "A", "HR", "TABLE", "THEAD", "TBODY", "TR", "TH", "TD"]);
+      const forbidden = new Set(["SCRIPT", "STYLE", "IFRAME", "OBJECT", "EMBED", "SVG", "MATH", "FORM", "INPUT", "BUTTON"]);
+      const clean = parent => [...parent.children].forEach(node => {
+        if (forbidden.has(node.tagName)) { node.remove(); return; }
+        if (!allowed.has(node.tagName)) { clean(node); node.replaceWith(...node.childNodes); return; }
+        for (const attr of [...node.attributes]) {
+          if (node.tagName === "A" && attr.name === "href" && /^(https?:\/\/|mailto:)/i.test(attr.value)) continue;
+          if (["CODE", "PRE"].includes(node.tagName) && attr.name === "class" && /^language-[\w+-]+$/.test(attr.value)) continue;
+          node.removeAttribute(attr.name);
+        }
+        if (node.tagName === "A" && node.hasAttribute("href")) {
+          node.setAttribute("target", "_blank");
+          node.setAttribute("rel", "noopener noreferrer");
+        }
+        clean(node);
+      });
+      clean(doc.body);
+      return doc.body.innerHTML;
+    }
+
+    function renderSidebar() {
+      recentList.innerHTML = "";
+      chats.forEach(c => {
+        const el = document.createElement("div");
+        el.className = `list-item ${c.id === activeChatId ? "active" : ""}`;
+        const title = document.createElement("span");
+        title.className = "list-item-title";
+        title.textContent = String(c.title ?? "Conversa");
+        const remove = document.createElement("button");
+        remove.className = "mini-btn";
+        remove.type = "button";
+        remove.dataset.del = String(c.id ?? "");
+        remove.setAttribute("aria-label", "Excluir conversa");
+        remove.textContent = "✕";
+        el.append(title, remove);
+        el.addEventListener("click", (e) => {
+          if (e.target.dataset.del) {
+            e.stopPropagation();
+            chats = chats.filter(x => x.id !== c.id);
+            if (activeChatId === c.id) activeChatId = chats[0]?.id || null;
+            persist();
+            renderSidebar();
+            renderChat();
+            return;
+          }
+          activeChatId = c.id;
+          switchStage("chat");
+          renderSidebar();
+          renderChat();
+        });
+        recentList.appendChild(el);
+      });
+    }
+
+    function stateDescription(state) {
+      return ({
+        idle: "Aguardando sua mensagem…",
+        receiving: "Recebi sua mensagem.",
+        analyzing: "Analisando a solicitação…",
+        thinking: "A solicitação foi enviada. Aguardando resposta do modelo…",
+        searching: "Pesquisando informações…",
+        executing: "Executando a etapa solicitada…",
+        generating: "Preparando a resposta…",
+        sending: "Recebendo a resposta…",
+        queued: "Sua mensagem está aguardando na fila.",
+        waiting: "A operação está aguardando uma dependência.",
+        reconnecting: "A conexão foi interrompida. Verifique a conexão antes de tentar novamente.",
+        completed: "Resposta concluída.",
+        error: "Não foi possível concluir esta etapa. Tente novamente.",
+        interrupted: "Operação interrompida."
+      })[state] || "Aguardando sua mensagem…";
+    }
+
+    function setOperationStatus(state, detail = "", operationId = "") {
+      operationStatus.dataset.state = state;
+      operationStatus.textContent = detail || stateDescription(state);
+      operationStatus.title = operationId ? `Operação ${operationId}` : "";
+      operationStatus.setAttribute("aria-busy", String(["receiving", "thinking", "searching", "executing", "generating", "sending", "reconnecting"].includes(state)));
+    }
+
+    function updateQueueCount() {
+      const count = jobQueue.size;
+      queueCount.hidden = count === 0;
+      queueCount.textContent = count ? `${count} ${count === 1 ? "na fila" : "na fila"}` : "";
+      queueCount.setAttribute("aria-label", `${count} mensagens aguardando na fila`);
+    }
+
+    async function checkConnection() {
+      const badge = document.getElementById("apiStatusBadge");
+      badge.className = "status-pill checking";
+      badge.textContent = "Verificando…";
+      try {
+        const response = await fetch("/api/status", { cache: "no-store", signal: AbortSignal.timeout(5000) });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const status = await response.json();
+        badge.className = status.configured ? "status-pill" : "status-pill error";
+        badge.textContent = status.configured ? "Online" : "API sem chave";
+        badge.title = status.configured ? "A chave está configurada; a disponibilidade do provedor será verificada ao enviar." : "Configure OPENROUTER_API_KEY no arquivo .env.";
+      } catch {
+        badge.className = "status-pill offline";
+        badge.textContent = navigator.onLine ? "Servidor inacessível" : "Navegador offline";
+        badge.title = "A conexão com a API local não pôde ser verificada.";
+      }
+    }
+
+    function renderChat() {
+      const chat = getActiveChat();
+      const isEmpty = chat.messages.length === 0;
+      const shouldStickToBottom = messagesScroll.scrollHeight - messagesScroll.scrollTop - messagesScroll.clientHeight < 120;
+      chatStage.classList.toggle("is-empty", isEmpty);
+      messagesScroll.innerHTML = "";
+      if (isEmpty) return;
+
+      chat.messages.forEach((m) => {
+        const item = document.createElement("div");
+        const role = m.role === "assistant" ? "assistant" : "user";
+        item.className = `msg-item ${role}`;
+        item.dataset.operationId = String(m.operationId || "");
+        const bubble = document.createElement("div");
+        bubble.className = "msg-bubble";
+        if (role === "assistant" && m.pending) {
+          const status = document.createElement("div");
+          status.className = "typing-status";
+          status.setAttribute("role", "status");
+          status.setAttribute("aria-live", "polite");
+          status.innerHTML = `<span class="typing-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>${stateDescription(m.state || "thinking")}</span>`;
+          bubble.appendChild(status);
+        }
+        else if (role === "assistant") bubble.innerHTML = safeMarkdown(m.content);
+        else bubble.textContent = String(m.content ?? "");
+        item.appendChild(bubble);
+
+        const meta = document.createElement("div");
+        meta.className = "message-meta";
+        if (Number.isFinite(m.createdAt)) {
+          const time = document.createElement("time");
+          time.dateTime = new Date(m.createdAt).toISOString();
+          time.textContent = new Date(m.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+          meta.appendChild(time);
+        }
+        if (role === "user" && m.state === "queued") {
+          const position = jobQueue.positionForMessage(m.id);
+          const label = document.createElement("span");
+          label.textContent = `Na fila${position > 0 ? ` · posição ${position}` : ""}`;
+          meta.appendChild(label);
+          const cancel = document.createElement("button");
+          cancel.type = "button";
+          cancel.className = "queue-cancel";
+          cancel.dataset.cancelQueued = String(m.operationId || "");
+          cancel.textContent = "Remover";
+          meta.appendChild(cancel);
+        } else if (role === "user" && m.state === "interrupted" && !chat.messages.some(x => x.role === "assistant" && x.retryMessageId === m.id)) {
+          const label = document.createElement("span");
+          label.textContent = m.cancelReason || "Interrompida";
+          meta.appendChild(label);
+          const retry = document.createElement("button");
+          retry.type = "button";
+          retry.dataset.retryMessage = String(m.id || "");
+          retry.disabled = sending && queuePolicy === "block";
+          retry.textContent = "Reenviar";
+          meta.appendChild(retry);
+        }
+        if (role === "assistant" && ["error", "interrupted"].includes(m.state)) {
+          const label = document.createElement("span");
+          label.textContent = stateDescription(m.state);
+          meta.appendChild(label);
+          const retry = document.createElement("button");
+          retry.type = "button";
+          retry.dataset.retryMessage = String(m.retryMessageId || "");
+          retry.disabled = sending && queuePolicy === "block";
+          retry.textContent = "Tentar novamente";
+          meta.appendChild(retry);
+        }
+        if (meta.childNodes.length) item.appendChild(meta);
+        messagesScroll.appendChild(item);
+      });
+      if (shouldStickToBottom) messagesScroll.scrollTop = messagesScroll.scrollHeight;
+    }
+
+    function updateModeButtons() {
+      const webButton = document.getElementById("webToggleBtn");
+      const thinkButton = document.getElementById("thinkToggleBtn");
+      webButton.classList.toggle("active", webMode);
+      thinkButton.classList.toggle("active", thinkMode);
+      webButton.setAttribute("aria-pressed", String(webMode));
+      thinkButton.setAttribute("aria-pressed", String(thinkMode));
+      webButton.title = webMode ? "Busca na web ativada" : "Busca na web desativada";
+      thinkButton.title = thinkMode ? "Raciocínio profundo ativado (pode levar mais tempo ou consumir mais créditos)" : "Raciocínio profundo desativado";
+    }
+
+    function saveModes() {
+      chatPrefs = { ...chatPrefs, thinkMode, webMode, queuePolicy };
+      try { localStorage.setItem(PREFS_KEY, JSON.stringify(chatPrefs)); } catch {}
+      updateModeButtons();
+    }
+
+    document.getElementById("webToggleBtn").addEventListener("click", () => { webMode = !webMode; saveModes(); });
+    document.getElementById("thinkToggleBtn").addEventListener("click", () => { thinkMode = !thinkMode; saveModes(); });
+    queuePolicySelect.value = queuePolicy;
+    queuePolicySelect.addEventListener("change", () => {
+      queuePolicy = QUEUE_POLICIES.has(queuePolicySelect.value) ? queuePolicySelect.value : "block";
+      saveModes();
+      setChatBusy(sending);
+      if (sending) setOperationStatus(activeJob?.machine.state || "thinking", `Política atualizada: ${queuePolicySelect.options[queuePolicySelect.selectedIndex].text}.`, activeJob?.id || "");
+    });
+
+    function setChatBusy(busy) {
+      const lockComposer = busy && queuePolicy === "block";
+      promptInput.disabled = lockComposer;
+      document.getElementById("webToggleBtn").disabled = lockComposer;
+      document.getElementById("thinkToggleBtn").disabled = lockComposer;
+      modelSelect.disabled = lockComposer;
+      document.getElementById("newChatBtn").disabled = busy;
+      recentList.inert = busy;
+      chatStage.setAttribute("aria-busy", String(busy));
+      cancelOperationBtn.hidden = !busy || queuePolicy === "block";
+      sendOrbBtn.classList.toggle("stop-generation", busy && queuePolicy === "block");
+      if (busy && queuePolicy === "block") {
+        sendOrbBtn.setAttribute("aria-label", "Parar geração");
+        sendOrbBtn.title = "Parar geração";
+        sendOrbBtn.innerHTML = "■";
+      } else if (busy && queuePolicy === "queue") {
+        sendOrbBtn.setAttribute("aria-label", "Adicionar mensagem à fila");
+        sendOrbBtn.title = "Adicionar mensagem à fila";
+        sendOrbBtn.innerHTML = "↗";
+      } else if (busy && queuePolicy === "interrupt") {
+        sendOrbBtn.setAttribute("aria-label", "Enviar e interromper a resposta atual");
+        sendOrbBtn.title = "Enviar e interromper a resposta atual";
+        sendOrbBtn.innerHTML = "↻";
+      } else {
+        sendOrbBtn.setAttribute("aria-label", "Enviar mensagem");
+        sendOrbBtn.title = "Enviar mensagem";
+        sendOrbBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.4 20.4 20.85 12.92a1 1 0 0 0 0-1.84L3.4 3.6a.993.993 0 0 0-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"/></svg>';
+      }
+    }
+
+    function createJob(chat, userMessage) {
+      const job = {
+        id: crypto.randomUUID(),
+        chatId: chat.id,
+        userMessage,
+        model: modelSelect.value,
+        reasoning: thinkMode,
+        webSearch: webMode,
+        assistantMessage: null,
+        errorMessage: ""
+      };
+      userMessage.operationId = job.id;
+      job.machine = new ChatStateMachine(job.id, event => {
+        userMessage.stateHistory = job.machine.history;
+        if (job.assistantMessage) {
+          job.assistantMessage.state = event.to;
+          job.assistantMessage.stateHistory = job.machine.history;
+        }
+        const detail = event.to === "error" ? (job.errorMessage || stateDescription("error")) : stateDescription(event.to);
+        setOperationStatus(event.to, detail, job.id);
+        persist();
+        if (activeChatId === job.chatId) renderChat();
+      });
+      job.machine.transition(CHAT_STATES.RECEIVING, "Mensagem recebida pela interface.");
+      return job;
+    }
+
+    function addRequest(text, { retry = false } = {}) {
+      if (sending && jobQueue.size >= MAX_PENDING_CHAT_JOBS) {
+        setOperationStatus("idle", `A fila atingiu o limite de ${MAX_PENDING_CHAT_JOBS} pedidos. Aguarde ou remova uma mensagem antes de adicionar outra.`);
+        return false;
+      }
+      const chat = getActiveChat();
+      if (!chat.messages.length) chat.title = text.replace(/\s+/g, " ").slice(0, 32);
+      const userMessage = { id: crypto.randomUUID(), role: "user", content: text, createdAt: Date.now(), state: "receiving", retry };
+      chat.messages.push(userMessage);
+      const job = createJob(chat, userMessage);
+      if (sending) {
+        userMessage.state = "queued";
+        job.machine.transition(CHAT_STATES.QUEUED, "Aguardando a conclusão da operação anterior.");
+        jobQueue.enqueue(job, { priority: queuePolicy === "interrupt" });
+        persist();
+        updateQueueCount();
+        renderSidebar();
+        if (activeChatId === chat.id) renderChat();
+        if (queuePolicy === "interrupt") {
+          setOperationStatus(activeJob?.machine.state || "thinking", "Novo pedido guardado; interrompendo a resposta atual…", activeJob?.id || job.id);
+          activeController?.abort();
+        } else {
+          setOperationStatus("queued", `Mensagem guardada na fila. ${jobQueue.size} ${jobQueue.size === 1 ? "pedido aguarda" : "pedidos aguardam"}.`, job.id);
+        }
+        return true;
+      }
+
+      jobQueue.enqueue(job);
+      persist();
+      updateQueueCount();
+      renderSidebar();
+      renderChat();
+      void processNextJob();
+      return true;
+    }
+
+    function sendChat() {
+      const text = promptInput.value.trim();
+      if (!text || (sending && queuePolicy === "block")) return;
+      if (addRequest(text)) promptInput.value = "";
+    }
+
+    function cancelActiveJob() {
+      if (!activeController || !activeJob) return;
+      setOperationStatus(activeJob.machine.state, "Cancelamento solicitado; aguardando o encerramento da solicitação…", activeJob.id);
+      activeController.abort();
+    }
+
+    function cancelQueuedJob(operationId) {
+      const job = jobQueue.removeById(operationId);
+      if (!job) return;
+      job.userMessage.state = "interrupted";
+      job.userMessage.cancelReason = "Pedido removido da fila antes de ser enviado.";
+      if (job.machine.canTransition(CHAT_STATES.INTERRUPTED)) job.machine.transition(CHAT_STATES.INTERRUPTED, job.userMessage.cancelReason);
+      updateQueueCount();
+      persist();
+      renderChat();
+    }
+
+    function retryMessage(messageId) {
+      const chat = getActiveChat();
+      const previous = chat.messages.find(message => message.id === messageId && message.role === "user");
+      if (!previous || (sending && queuePolicy === "block")) return;
+      addRequest(previous.content, { retry: true });
+    }
+
+    function readableError(error) {
+      if (error?.name === "TypeError" || navigator.onLine === false) return "A conexão foi interrompida. Verifique sua internet e tente novamente.";
+      if (error?.status === 401 || error?.status === 403) return "A chave da API ou a permissão do modelo foi recusada. Confira a configuração.";
+      if (error?.status === 402) return "O provedor recusou a solicitação por crédito ou cobrança. Confira sua conta.";
+      if (error?.status === 429) return "O limite de solicitações foi atingido. Aguarde um pouco antes de tentar novamente.";
+      if (error?.status >= 500) return "O serviço do modelo apresentou uma falha temporária. Tente novamente mais tarde.";
+      return error?.message || "Não foi possível concluir a solicitação.";
+    }
+
+    async function processNextJob() {
+      if (sending) return;
+      const job = jobQueue.dequeue();
+      updateQueueCount();
+      if (!job) {
+        setChatBusy(false);
+        return;
+      }
+      const chat = chats.find(item => item.id === job.chatId);
+      if (!chat) {
+        job.userMessage.state = "error";
+        job.errorMessage = "A conversa desta solicitação não está mais disponível.";
+        if (job.machine.canTransition(CHAT_STATES.ERROR)) job.machine.transition(CHAT_STATES.ERROR, job.errorMessage);
+        void processNextJob();
+        return;
+      }
+
+      sending = true;
+      activeJob = job;
+      setChatBusy(true);
+      job.userMessage.state = "processing";
+      if (job.machine.state === CHAT_STATES.RECEIVING || job.machine.state === CHAT_STATES.QUEUED) {
+        job.machine.transition(CHAT_STATES.THINKING, "Solicitação enviada ao modelo; aguardando o primeiro evento de resposta.");
+      }
+      const userIndex = chat.messages.indexOf(job.userMessage);
+      if (userIndex < 0) {
+        job.errorMessage = "A mensagem da fila não foi encontrada no histórico.";
+        job.machine.transition(CHAT_STATES.ERROR, job.errorMessage);
+        sending = false;
+        activeJob = null;
+        setChatBusy(false);
+        void processNextJob();
+        return;
+      }
+      const assistantMessage = {
+        id: crypto.randomUUID(),
+        role: "assistant",
+        content: "",
+        operationId: job.id,
+        retryMessageId: job.userMessage.id,
+        state: CHAT_STATES.THINKING,
+        pending: true,
+        createdAt: Date.now()
+      };
+      job.assistantMessage = assistantMessage;
+      chat.messages.splice(userIndex + 1, 0, assistantMessage);
+      activeController = new AbortController();
+      persist();
+      if (activeChatId === chat.id) renderChat();
+
+      try {
+        const history = chat.messages.slice(0, chat.messages.indexOf(assistantMessage)).map(({ role, content }) => ({ role, content }));
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          signal: activeController.signal,
+          body: JSON.stringify({ operationId: job.id, messages: history, model: job.model, reasoning: job.reasoning, webSearch: job.webSearch })
+        });
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          const error = new Error(errorData.error || `A API retornou erro ${response.status}.`);
+          error.status = response.status;
+          throw error;
+        }
+        if (!response.body) throw new Error("O servidor não iniciou o fluxo de resposta.");
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          let newline;
+          while ((newline = buffer.indexOf("\n")) >= 0) {
+            const line = buffer.slice(0, newline).trim();
+            buffer = buffer.slice(newline + 1);
+            if (!line.startsWith("data:")) continue;
+            let data;
+            try { data = JSON.parse(line.slice(5)); } catch { continue; }
+            if (data.error) throw new Error(data.error);
+            if (typeof data.delta === "string" && data.delta) {
+              if (job.machine.state === CHAT_STATES.THINKING || job.machine.state === CHAT_STATES.RECONNECTING) {
+                job.machine.transition(CHAT_STATES.SENDING, "O primeiro trecho da resposta chegou.");
+              }
+              assistantMessage.pending = false;
+              assistantMessage.content += data.delta;
+              persistSoon();
+              if (activeChatId === chat.id) renderChat();
+            }
+          }
+        }
+        if (!assistantMessage.content) throw new Error("O modelo encerrou sem retornar texto.");
+        assistantMessage.pending = false;
+        assistantMessage.state = CHAT_STATES.COMPLETED;
+        job.userMessage.state = CHAT_STATES.COMPLETED;
+        job.machine.transition(CHAT_STATES.COMPLETED, "Resposta recebida e concluída.");
+      } catch (error) {
+        assistantMessage.pending = false;
+        if (error?.name === "AbortError") {
+          assistantMessage.state = CHAT_STATES.INTERRUPTED;
+          job.userMessage.state = CHAT_STATES.INTERRUPTED;
+          assistantMessage.content = assistantMessage.content ? `${assistantMessage.content}\n\n_Geração interrompida._` : "Geração interrompida.";
+          if (job.machine.canTransition(CHAT_STATES.INTERRUPTED)) job.machine.transition(CHAT_STATES.INTERRUPTED, "Cancelamento solicitado pelo usuário ou política de fila.");
+        } else {
+          job.errorMessage = readableError(error);
+          assistantMessage.state = CHAT_STATES.ERROR;
+          job.userMessage.state = CHAT_STATES.ERROR;
+          assistantMessage.content = job.errorMessage;
+          console.error(`[PZ AI operation ${job.id}]`, error);
+          if (job.machine.canTransition(CHAT_STATES.ERROR)) job.machine.transition(CHAT_STATES.ERROR, job.errorMessage);
+        }
+      } finally {
+        assistantMessage.pending = false;
+        assistantMessage.result = assistantMessage.content;
+        assistantMessage.completedAt = Date.now();
+        job.userMessage.updatedAt = Date.now();
+        activeController = null;
+        activeJob = null;
+        sending = false;
+        setChatBusy(false);
+        updateQueueCount();
+        persist();
+        if (activeChatId === chat.id) renderChat();
+        if (jobQueue.size) void processNextJob();
+      }
+    }
+
+    sendOrbBtn.addEventListener("click", () => {
+      if (sending && queuePolicy === "block") { cancelActiveJob(); return; }
+      sendChat();
+    });
+    cancelOperationBtn.addEventListener("click", cancelActiveJob);
+    promptInput.addEventListener("keydown", event => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); sendChat(); } });
+    messagesScroll.addEventListener("click", event => {
+      const cancel = event.target.closest("[data-cancel-queued]");
+      if (cancel) { cancelQueuedJob(cancel.dataset.cancelQueued); return; }
+      const retry = event.target.closest("[data-retry-message]");
+      if (retry) retryMessage(retry.dataset.retryMessage);
+    });
+
+    document.getElementById("newChatBtn").addEventListener("click", () => {
+      switchStage("chat");
+      chats.unshift({ id: crypto.randomUUID(), title: "Novo chat", messages: [] });
+      activeChatId = chats[0].id;
+      persist();
+      renderSidebar();
+      renderChat();
+    });
+
+    document.getElementById("openCodexBtn").addEventListener("click", () => canvasDrawer.classList.toggle("open"));
+    document.getElementById("closeCanvasBtn").addEventListener("click", () => canvasDrawer.classList.remove("open"));
+
+    window.addEventListener("offline", () => {
+      const badge = document.getElementById("apiStatusBadge");
+      badge.className = "status-pill offline";
+      badge.textContent = "Navegador offline";
+      if ([CHAT_STATES.THINKING, CHAT_STATES.SENDING].includes(activeJob?.machine.state)) {
+        activeJob.machine.transition(CHAT_STATES.RECONNECTING, "O navegador informou perda de conectividade.");
+      }
+    });
+    window.addEventListener("online", () => { void checkConnection(); });
+
+    async function init() {
+      updateModeButtons();
+      queuePolicySelect.value = queuePolicy;
+      updateQueueCount();
+      setOperationStatus(recoveredInterruptedOperation ? CHAT_STATES.INTERRUPTED : CHAT_STATES.IDLE, recoveredInterruptedOperation ? "Uma operação anterior foi interrompida ao recarregar a página. Reenvie se necessário." : "Aguardando sua mensagem…");
+      renderSidebar();
+      renderChat();
+      await checkConnection();
+      await loadModels();
+    }
+
+    // Carrega a lista de modelos do servidor (usado na inicialização e no botão ↻).
+    async function loadModels({ notify = false } = {}) {
+      const previous = modelSelect.value;
+      try {
+        const response = await fetch("/api/models");
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const res = await response.json();
+        if (res.models) {
+          modelSelect.innerHTML = "";
+          res.models.forEach(m => {
+            const opt = document.createElement("option");
+            opt.value = m.id;
+            opt.textContent = m.name;
+            modelSelect.appendChild(opt);
+          });
+          if (notify && [...modelSelect.options].some(o => o.value === previous)) modelSelect.value = previous;
+          if (notify) window.pzToast?.(`${res.models.length} modelos carregados.`);
+        }
+      } catch {
+        if (notify) window.pzToast?.("Não foi possível carregar os modelos agora.");
+      }
+    }
+    document.getElementById("reloadModelsBtn").addEventListener("click", () => { void loadModels({ notify: true }); });
+
+    // Exporta a conversa ativa como arquivo Markdown (somente leitura do histórico local).
+    function exportMarkdown() {
+      const chat = chats.find(x => x.id === activeChatId);
+      if (!chat || !chat.messages.length) { window.pzToast?.("Não há mensagens para exportar nesta conversa."); return; }
+      const body = chat.messages
+        .filter(m => String(m.content ?? "").trim())
+        .map(m => `## ${m.role === "user" ? "Você" : "PZ AI"}\n\n${m.content}`)
+        .join("\n\n---\n\n");
+      const blob = new Blob([`# ${chat.title}\n\n${body}\n`], { type: "text/markdown;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${(chat.title || "conversa").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "conversa"}.md`;
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(() => { link.remove(); URL.revokeObjectURL(url); }, 1000);
+    }
+    document.getElementById("exportMarkdownBtn").addEventListener("click", exportMarkdown);
+    init();
+  </script>
+</body>
+</html>

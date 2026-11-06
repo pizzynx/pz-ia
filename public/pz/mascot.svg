@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 460 430" width="460" height="430" role="img" aria-label="Mascote robô da PZ AI">
+  <defs>
+    <radialGradient id="head" cx="38%" cy="22%" r="85%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".55" stop-color="#f1edfd"/>
+      <stop offset="1" stop-color="#c9bfee"/>
+    </radialGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#d9d1f3"/>
+    </linearGradient>
+    <linearGradient id="visor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a1030"/>
+      <stop offset=".5" stop-color="#07040f"/>
+      <stop offset="1" stop-color="#140a2a"/>
+    </linearGradient>
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a66bff"/>
+      <stop offset=".55" stop-color="#7a2ff0"/>
+      <stop offset="1" stop-color="#4f16c4"/>
+    </linearGradient>
+    <linearGradient id="cup" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8d4dff"/>
+      <stop offset="1" stop-color="#5a1fd1"/>
+    </linearGradient>
+    <linearGradient id="dark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3b2e66"/>
+      <stop offset="1" stop-color="#0f0a22"/>
+    </linearGradient>
+    <linearGradient id="badge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b1d57"/>
+      <stop offset="1" stop-color="#120a2b"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#f2a516"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-80%" width="180%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#4b1fb0" flood-opacity=".28"/>
+    </filter>
+    <clipPath id="visorClip"><rect x="82" y="108" width="236" height="144" rx="62"/></clipPath>
+  </defs>
+  <style>
+    .eyes { animation: pulse 3.2s ease-in-out infinite; transform-origin: 200px 170px; }
+    .spark { animation: spark 2.4s ease-in-out infinite; transform-origin: 30px 90px; }
+    .spark:nth-of-type(2) { animation-delay: .25s; }
+    .spark:nth-of-type(3) { animation-delay: .5s; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .82; } }
+    @keyframes spark { 0%,100% { opacity: .95; } 50% { opacity: .35; } }
+    @media (prefers-reduced-motion: reduce) { .eyes, .spark { animation: none; } }
+  </style>
+
+  <!-- brilhos de saudação -->
+  <g stroke="#7a2ff0" stroke-width="9" stroke-linecap="round" fill="none">
+    <path class="spark" d="M-6 112 L22 124"/>
+    <path class="spark" d="M8 78 L28 98"/>
+    <path class="spark" d="M44 56 L50 82"/>
+  </g>
+
+  <!-- corpo -->
+  <g filter="url(#soft)">
+    <path d="M118 262 Q118 250 140 250 L262 250 Q284 250 284 262 L296 420 L106 420 Z" fill="url(#body)"/>
+    <!-- ombro direito (escuro) e braço -->
+    <ellipse cx="318" cy="318" rx="52" ry="46" fill="url(#dark)"/>
+    <rect x="326" y="326" width="50" height="120" rx="25" fill="url(#body)" transform="rotate(-32 346 340)"/>
+    <ellipse cx="318" cy="314" rx="40" ry="32" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="3"/>
+  </g>
+  <!-- pescoço -->
+  <rect x="158" y="244" width="84" height="26" rx="12" fill="url(#dark)"/>
+
+  <!-- crachá do peito -->
+  <rect x="146" y="304" width="108" height="108" rx="26" fill="url(#badge)"/>
+  <rect x="146" y="304" width="108" height="108" rx="26" fill="none" stroke="#ffffff" stroke-opacity=".14" stroke-width="2"/>
+  <path d="M176 336 L180 322 L188 330 L200 316 L212 330 L220 322 L224 336 Z" fill="url(#gold)"/>
+  <rect x="176" y="335" width="48" height="6" rx="3" fill="url(#gold)"/>
+  <text x="200" y="378" text-anchor="middle" font-family="Poppins, 'Arial Black', Arial, sans-serif" font-weight="800" font-style="italic" font-size="31" fill="#ffffff" letter-spacing="-1">PZ<tspan fill="#b784ff"> AI</tspan></text>
+
+
+  <!-- cabeça -->
+  <g filter="url(#soft)">
+    <rect x="34" y="82" width="332" height="190" rx="96" fill="url(#head)"/>
+    <rect x="34" y="82" width="332" height="190" rx="96" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="2"/>
+  </g>
+
+  <!-- ombro esquerdo + mão com joinha -->
+  <g filter="url(#soft)">
+    <ellipse cx="128" cy="326" rx="30" ry="34" fill="url(#dark)"/>
+    <!-- polegar -->
+    <rect x="34" y="232" width="44" height="104" rx="22" fill="url(#head)" transform="rotate(-4 56 284)"/>
+    <!-- punho -->
+    <rect x="8" y="300" width="112" height="108" rx="40" fill="url(#head)"/>
+    <path d="M70 322 Q96 322 106 330 M70 346 Q98 346 108 354 M70 370 Q96 370 104 378" stroke="#c4b9ea" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <path d="M24 318 Q44 306 66 312" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity=".9"/>
+  </g>
+
+  <!-- fones -->
+  <g>
+    <rect x="12" y="130" width="58" height="104" rx="29" fill="url(#cup)"/>
+    <rect x="22" y="144" width="30" height="76" rx="15" fill="#ffffff" fill-opacity=".14"/>
+    <rect x="330" y="130" width="58" height="104" rx="29" fill="url(#cup)"/>
+    <rect x="348" y="144" width="30" height="76" rx="15" fill="#ffffff" fill-opacity=".14"/>
+    <path d="M22 140 Q34 128 48 134" stroke="#fff" stroke-opacity=".5" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M340 140 Q352 128 366 134" stroke="#fff" stroke-opacity=".5" stroke-width="4" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- visor -->
+  <rect x="82" y="108" width="236" height="144" rx="62" fill="url(#visor)"/>
+  <g clip-path="url(#visorClip)">
+    <ellipse cx="150" cy="118" rx="110" ry="26" fill="#fff" fill-opacity=".07" transform="rotate(-8 150 118)"/>
+  </g>
+  <rect x="82" y="108" width="236" height="144" rx="62" fill="none" stroke="#4b2d8f" stroke-opacity=".55" stroke-width="2"/>
+  <g class="eyes" filter="url(#glow)" stroke-linecap="round" fill="none">
+    <path d="M126 184 Q146 142 170 184" stroke="#c58bff" stroke-width="12"/>
+    <path d="M230 184 Q254 142 274 184" stroke="#c58bff" stroke-width="12"/>
+    <path d="M178 206 Q200 228 222 206" stroke="#c99bff" stroke-width="8"/>
+  </g>
+
+  <!-- coroa -->
+  <g filter="url(#soft)">
+    <path d="M142 84 L146 34 L174 58 L200 18 L226 58 L254 34 L258 84 Q200 98 142 84 Z" fill="url(#purple)"/>
+    <path d="M142 84 L146 34 L174 58 L200 18" stroke="#fff" stroke-opacity=".28" stroke-width="2" fill="none"/>
+    <rect x="142" y="74" width="116" height="16" rx="8" fill="#4a14b8"/>
+    <circle cx="146" cy="30" r="9" fill="#d6bcff"/>
+    <circle cx="200" cy="14" r="10" fill="#e6d4ff"/>
+    <circle cx="254" cy="30" r="9" fill="#d6bcff"/>
+    <circle cx="200" cy="82" r="6" fill="#e6d4ff"/>
+  </g>
+</svg>
